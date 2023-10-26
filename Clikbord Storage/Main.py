@@ -1,31 +1,34 @@
 import pyperclip
-import csv
+import os
 
-texts = {'agree' : 'Yes, I can come with you!', 
-        'busy': 'No, I can not come with you. May we do this another time?',
-        'no': "No, I don't want do this"
-        }
+texts = {}
 
-def writerr(firstString, secondString):
-    with open("veritabani.csv", "w", newline="") as csv_file:
+file_name = "veritabani.txt"
+
+def write(firstString, secondString):
+    with open(file_name, "a") as file:
         texts[firstString] = secondString
-        csv_writer = csv.DictWriter(csv_file, fieldnames=texts.keys()) 
-        csv_writer.writeheader()
-        csv_writer.writerow(texts)
-        print(texts)
-def readerr():
-    with open("veritabani.csv", "r") as csv_file:
-        csv_reader = csv.reader(csv_file)
-        for line in csv_reader:
-            print(line)
+        file.write(f"{firstString}: {secondString}\n")
+
 def update_texts():
-    global texts
-    texts = [*csv.DictReader(open('veritabani.csv'))] 
-    print(texts)
+    if os.path.exists(file_name):
+        with open("veritabani.txt", "r") as file:
+            global texts
+            
+            lines = file.readlines()
+            
+            for line in lines:
+                key, value = line.strip().split(": ")
+                texts[key] = value
+            print(texts)
+    else:
+        with open("veritabani.txt", "w") as file:
+            for key, value in texts.items():
+                file.write(f"{key}: {value}\n")
 update_texts()
+print(texts)
 while True:
     answer = input("What do you want to copy?\n")
-
     if answer in texts:
         pyperclip.copy(texts[answer])
         print("Text " + pyperclip.paste() + " copied to clipboard.")
@@ -34,7 +37,6 @@ while True:
     else:
         print("There is no text for " + answer)
         answer2 = input("Do you want to add to the database:")
-        if answer2 == "Yes" or answer2 == "yes":
+        if answer2.lower() == "yes":
             addtext = input("Please write it: ")
-            writerr(answer, addtext)
-            update_texts()
+            write(answer, addtext)
