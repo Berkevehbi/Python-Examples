@@ -3,9 +3,18 @@ import os
 # We define the Texts variable as an empty list.
 texts = {}
 file_name = "database.txt"
-# This update_texts function is executed the first time the program is run
-# and pulls the data in the database.txt file into the texts list.
+
 def update_texts():
+    """
+    This function is executed the first time the program is run
+    and pulls the data in the database.txt file into the texts list.
+    Args:
+        None
+    Returns:
+    -------
+    None.
+
+    """
     # We check whether there is database.txt in the folder
     # where our Python script file is located.
     if os.path.exists(file_name):
@@ -26,10 +35,22 @@ def update_texts():
             # If there is data in the Texts list, we save it in database.txt.
             for key, value in texts.items():
                 file.write(f"{key}: {value}\n")
-        
-# This write function allows the new word pair to be registered in the database.txt 
-# file and added to the texts list.
+    
 def write(firstString, secondString):
+    """
+     This write function allows the new word pair to be registered in the database.txt 
+     file and added to the texts list.
+
+    Parameters
+    ----------
+    firstString : This firstString variable is the first word we receive from the user. 
+    secondString : This secondString variable is the sentence to be copied to the clipboard.
+
+    Returns
+    -------
+    None.
+
+    """
     with open(file_name, "a") as file:
         texts[firstString] = secondString
         file.write("{}: {}\n".format(firstString,secondString))
