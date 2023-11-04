@@ -39,6 +39,8 @@ def countSignificantFigures(number):
     return total
     
 def toScientificNotation(number, powder):
+    if number == 0:
+        return Decimal(number), 0
     while number >= 10 or number < 1:
         if number >= 10:
             number /= 10
@@ -78,11 +80,12 @@ def roundnumber(number, fig):
         if prevDot == "0":
             fig += 1
             while isleadzero:
-                if afterDot[k] != "0":
+                if afterDot[k] != "0" and k <= len(afterDot):
                     isleadzero = False
                     break
-                fig+=  1
+                fig += 1
                 k += 1
+            fig += 1
         if len(prevDot) >= fig:
             result = Decimal(str(number)[0:fig])
             if len(prevDot) == fig:
@@ -184,8 +187,6 @@ def div(number1, number2):
     number2 = Decimal(number2)
     
     result = number1 / number2
-    
-    print(result)
     
     sigfig1 = countSignificantFigures(number1)
     sigfig2 = countSignificantFigures(number2)
