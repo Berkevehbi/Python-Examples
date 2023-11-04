@@ -10,11 +10,11 @@ My motivation for creating this project was to improve myself in python and to m
 
 To execute this code, please follow these steps:
 
-1.Download Python from the official website (https://www.python.org/downloads/release/python-3120/).
-2. Open the main.py file.
-3. Input two numerical values.
-4. Specify the type of operation you wish to perform (+, -, *, /).
-5. The result will be displayed on the screen.
+- i.Download Python from the official website (https://www.python.org/downloads/release/python-3120/).
+- 2. Open the main.py file.
+- 3. Input two numerical values.
+- 4. Specify the type of operation you wish to perform (+, -, *, /).
+- 5. The result will be displayed on the screen.
 
 ## Contribution
 
