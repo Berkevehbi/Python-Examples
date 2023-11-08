@@ -19,10 +19,11 @@ I created this project to improve my Python programming skills. Pascal's Triangl
 ## Example
 Suppose you want to generate Pascal's Triangle with 5 rows. Running the program and entering 5 when prompted will produce the following output:
 
+```
     1    
    1 1   
   1 2 1  
  1 3 3 1 
 1 4 6 4 1
-
+```
 Feel free to explore and modify the code to further enhance your Python skills and understanding of Pascal's Triangle. Enjoy learning and coding!
