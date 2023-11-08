@@ -18,6 +18,7 @@ I created this project to improve my Python programming skills. Pascal's Triangl
 
 ## Example
 Suppose you want to generate Pascal's Triangle with 5 rows. Running the program and entering 5 when prompted will produce the following output:
+
     1    
    1 1   
   1 2 1  
