@@ -1,6 +1,7 @@
 from decimal import Decimal
 
-def countSignificantFigures(number):
+
+def count_significant_figures(number):
     """
    Computes the number of significant figures in a given number.
 
@@ -11,51 +12,52 @@ def countSignificantFigures(number):
    int: The number of significant figures in the given number.
 
    Examples:
-   >>> countSignificantFigures(12345)
+   >>> count_significant_figures(12345)
    5
-   >>> countSignificantFigures(0.00321)
+   >>> count_significant_figures(0.00321)
    3
-   >>> countSignificantFigures(1000)
+   >>> count_significant_figures(1000)
    1
    """
-    isLeadingZero = True
-    isEndingZero = False
+    is_leading_zero = True
+    is_ending_zero = False
     total = 0
-    stringNumber = str(number)
-    if -1 != stringNumber.rfind('.'):
-        prevDot, afterDot = stringNumber.strip().split(".")
+    string_number = str(number)
+    if -1 != string_number.rfind('.'):
+        prevDot, afterDot = string_number.strip().split(".")
         if int(prevDot) != 0:
             total += len(prevDot)
-            isLeadingZero = False
+            is_leading_zero = False
         for i in range(len(afterDot)):
             if int(afterDot) == 0:
                 total += 1
                 break
-            elif afterDot[i] == "0" and isLeadingZero:
+            elif afterDot[i] == "0" and is_leading_zero:
                 continue
             else:
-                isLeadingZero = False
+                is_leading_zero = False
                 total += 1
     else:
-        for i in range(len(stringNumber)):
-            if isEndingZero:
+        for i in range(len(string_number)):
+            if is_ending_zero:
                 break
-            if stringNumber[i] == "0":
-                while i < len(stringNumber):
-                    if stringNumber[i] != "0":
-                        isEndingZero = False
+            if string_number[i] == "0":
+                while i < len(string_number):
+                    if string_number[i] != "0":
+                        is_ending_zero = False
                         break
                     i += 1
-                if i == len(stringNumber):
-                    isEndingZero = True
+                if i == len(string_number):
+                    is_ending_zero = True
                 else:
                     total += 1
             else:
                 total += 1
-                
+
     return total
 
-def toScientificNotation(number, power):
+
+def to_scientific_notation(number, power):
     """
     Converts a given number to scientific notation.
 
@@ -67,15 +69,15 @@ def toScientificNotation(number, power):
     str: A string representing the number in scientific notation (e.g., "6.022e+23").
 
     Examples:
-    >>> toScientificNotation(62300, 23)
+    >>> to_scientific_notation(62300, 23)
     (Decimal('6.23'), 27)
     """
-    isNegative = False
+    is_negative = False
     if number == 0:
         return number, 0
     elif number < 0:
         number = -number
-        isNegative = True
+        is_negative = True
     while number >= 10 or number < 1:
         if number >= 10:
             number /= 10
@@ -83,9 +85,10 @@ def toScientificNotation(number, power):
         else:
             number *= 10
             power -= 1
-    if isNegative:
+    if is_negative:
         return -number, power
     return number, power
+
 
 def power(base, powder):
     """
@@ -98,7 +101,7 @@ def power(base, powder):
     Returns:
     int or float: The result of base raised to the power.
     """
-    
+
     value = Decimal(1)
     i = 1
     if powder == 0:
@@ -112,11 +115,11 @@ def power(base, powder):
         while i <= powder:
             value /= base
             i += 1
-    
-    
+
     return value
 
-def roundnumber(number, fig):
+
+def round_number(number, fig):
     """
     Rounds the given number to the specified number of significant figures.
 
@@ -128,24 +131,24 @@ def roundnumber(number, fig):
     float: The rounded number with the specified number of significant figures.
 
     Examples:
-    >>> roundnumber(123.456789, 3)
+    >>> round_number(123.456789, 3)
     123
-    >>> roundnumber(0.0023456, 4)
+    >>> round_number(0.0023456, 4)
     0.002346
-    >>> roundnumber(9876.54321, 2)
+    >>> round_number(9876.54321, 2)
     9900
     """
     number = Decimal(number)
-    
+
     if str(number).find(".") != -1:
-        isleadzero = True
+        is_lead_zero = True
         k = 0
         prevDot, afterDot = str(number).strip().split(".")
         if prevDot == "0":
             fig += 1
-            while isleadzero:
+            while is_lead_zero:
                 if afterDot[k] != "0" and k <= len(afterDot):
-                    isleadzero = False
+                    is_lead_zero = False
                     break
                 fig += 1
                 k += 1
@@ -155,7 +158,7 @@ def roundnumber(number, fig):
         if len(prevDot) >= fig:
             result = Decimal(str(number)[0:fig])
             if len(prevDot) == fig:
-                if str(number)[fig + 1] != None and int(str(number)[fig + 1]) > 4:
+                if str(number)[fig + 1] is not None and int(str(number)[fig + 1]) > 4:
                     result += 1
                     return Decimal(result)
                 else:
@@ -186,6 +189,8 @@ def roundnumber(number, fig):
             return result
         except:
             return number
+
+
 def add(number1, number2):
     """
     Adds two numbers and rounds the result based on the significant figures in the inputs.
@@ -209,24 +214,26 @@ def add(number1, number2):
     sigfig2 = 0
     number1 = Decimal(number1)
     number2 = Decimal(number2)
-    
+
     result = number1 + number2
-    
+
     if str(number1).find(".") != -1:
         start1, end1 = str(number1).strip().split(".")
-        sigfig1 = countSignificantFigures(Decimal(end1))
-        
+        sigfig1 = count_significant_figures(Decimal(end1))
+
     if str(number2).find(".") != -1:
         start2, end2 = str(number2).strip().split(".")
-        sigfig2 = countSignificantFigures(Decimal(end2))
+        sigfig2 = count_significant_figures(Decimal(end2))
 
-    eksik_kisim = len(str(result).strip().split(".")[0])
-    
+    missing_part = len(str(result).strip().split(".")[0])
+
     if sigfig1 < sigfig2:
-        result = roundnumber(result, sigfig1 + eksik_kisim)
+        result = round_number(result, sigfig1 + missing_part)
     else:
-        result = roundnumber(result, sigfig2 + eksik_kisim)
+        result = round_number(result, sigfig2 + missing_part)
     return result
+
+
 def sub(number1, number2):
     """
     Subtracts two numbers and rounds the result based on the significant figures in the inputs.
@@ -248,24 +255,25 @@ def sub(number1, number2):
     sigfig2 = 0
     number1 = Decimal(number1)
     number2 = Decimal(number2)
-    
+
     result = number1 - number2
-    
+
     if str(number1).find(".") != -1:
         start1, end1 = str(number1).strip().split(".")
-        sigfig1 = countSignificantFigures(Decimal(end1))
-        
+        sigfig1 = count_significant_figures(Decimal(end1))
+
     if str(number2).find(".") != -1:
         start2, end2 = str(number2).strip().split(".")
-        sigfig2 = countSignificantFigures(Decimal(end2))
+        sigfig2 = count_significant_figures(Decimal(end2))
 
-    eksik_kisim = len(str(result).strip().split(".")[0])
-    
+    missing_part = len(str(result).strip().split(".")[0])
+
     if sigfig1 < sigfig2:
-        result = roundnumber(result, sigfig1 + eksik_kisim)
+        result = round_number(result, sigfig1 + missing_part)
     else:
-        result = roundnumber(result, sigfig2 + eksik_kisim)
+        result = round_number(result, sigfig2 + missing_part)
     return result
+
 
 def mul(number1, number2):
     """
@@ -288,17 +296,18 @@ def mul(number1, number2):
     """
     number1 = Decimal(number1)
     number2 = Decimal(number2)
-    
+
     result = number1 * number2
-    
-    sigfig1 = countSignificantFigures(number1)
-    sigfig2 = countSignificantFigures(number2)
-    
+
+    sigfig1 = count_significant_figures(number1)
+    sigfig2 = count_significant_figures(number2)
+
     if sigfig1 < sigfig2:
-        return roundnumber(result, sigfig1)
+        return round_number(result, sigfig1)
     else:
-        return roundnumber(result, sigfig2)
-    
+        return round_number(result, sigfig2)
+
+
 def div(number1, number2):
     """
   Divides two numbers and rounds the result to match the least number of significant figures in the inputs.
@@ -320,13 +329,13 @@ def div(number1, number2):
   """
     number1 = Decimal(number1)
     number2 = Decimal(number2)
-    
+
     result = number1 / number2
-    
-    sigfig1 = countSignificantFigures(number1)
-    sigfig2 = countSignificantFigures(number2)
-    
+
+    sigfig1 = count_significant_figures(number1)
+    sigfig2 = count_significant_figures(number2)
+
     if sigfig1 < sigfig2:
-        return roundnumber(result, sigfig1)
+        return round_number(result, sigfig1)
     else:
-        return roundnumber(result, sigfig2) 
+        return round_number(result, sigfig2)
