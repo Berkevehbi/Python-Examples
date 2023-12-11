@@ -25,8 +25,9 @@ class User:
 
     def save_the_process_withdraw(self, money_amount):
         with open("database.txt", "a") as file:
-            file.write("{} withdrawed {} at {}\n".format(self.full_name, money_amount,
-                                                         datetime.datetime.now().strftime("%Y-%m-%d %H:%M")))
+            file.write("{} withdraw {} at {}\n".format(self.full_name, money_amount,
+                                                       datetime.datetime.now().strftime("%Y-%m-%d %H:%M")))
+
 
 def create_account(full_name):
     return User(full_name, 0)
