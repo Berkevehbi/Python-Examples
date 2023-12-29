@@ -54,7 +54,7 @@ def find_e(course_content: List) -> int:
     return -1
 
 
-def calculate(course_content: List, target_grade: int, paths: List, current_path=None) -> bool:
+def calculate(course_content: List, target_grade: float, paths: List, current_path=None) -> bool:
     """
         Recursively calculates possible paths to achieve the target grade considering letter grades.
 
@@ -92,7 +92,7 @@ def calculate(course_content: List, target_grade: int, paths: List, current_path
     return found
 
 
-def find_all_paths(course_content: List, target_grade: int):
+def find_all_paths(course_content: List, target_grade: float):
     """
         Finds all possible paths to achieve the target grade considering letter grades.
 
